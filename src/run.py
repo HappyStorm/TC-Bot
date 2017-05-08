@@ -129,11 +129,11 @@ for u_goal_id, u_goal in enumerate(all_goal_set):
 movie_kb_path = params['movie_kb_path']
 movie_kb = pickle.load(open(movie_kb_path, 'rb'))
 
-act_set = text_to_dict(params['act_set'])
-slot_set = text_to_dict(params['slot_set'])
+act_set = text_to_dict(params['act_set']) # lines of dialogue actions: inform, request
+slot_set = text_to_dict(params['slot_set']) # lines of slots: moviename, date
 
 ################################################################################
-# a movie dictionary for user simulator - slot:possible values
+# a movie dictionary for user simulator - slot: possible values
 ################################################################################
 movie_dictionary = pickle.load(open(dict_path, 'rb'))
 

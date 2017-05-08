@@ -43,7 +43,10 @@ CONSTRAINT_CHECK_SUCCESS = 1
 nlg_beam_size = 10
 
 ################################################################################
-#  run_mode: 0 for dia-act; 1 for NL; 2 for no output
+#  run_mode:
+#           0 for dia-act
+#           1 for NL
+#           2 for no output
 ################################################################################
 run_mode = 0
 auto_suggest = 0
