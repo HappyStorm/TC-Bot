@@ -142,6 +142,7 @@ dialog_config.auto_suggest = params['auto_suggest']
 
 ################################################################################
 #   Parameters for Agents
+#       @params agent_params: parameters of agent (type: dictionary)
 ################################################################################
 agent_params = {}
 agent_params['max_turn'] = max_turn
@@ -182,6 +183,7 @@ else:
 
 ################################################################################
 #   Parameters for User Simulators
+#       @params usersim_params: parameters of user simulator (type: dictionary)
 ################################################################################
 usersim_params = {}
 usersim_params['max_turn'] = max_turn
@@ -192,7 +194,7 @@ usersim_params['simulator_run_mode'] = params['run_mode']
 usersim_params['simulator_act_level'] = params['act_level']
 usersim_params['learning_phase'] = params['learning_phase']
 
-if usr == 0:# real user
+if usr == 0: # real user
     user_sim = RealUser(movie_dictionary, act_set, slot_set, goal_set, usersim_params)
 elif usr == 1:
     user_sim = RuleSimulator(movie_dictionary, act_set, slot_set, goal_set, usersim_params)
@@ -248,7 +250,7 @@ success_rate_threshold = params['success_rate_threshold']
 save_check_point = params['save_check_point']
 
 
-""" Best Model and Performance Records """
+""" Initialization of Best Model and Performance Records """
 best_model = {}
 best_res = {'success_rate': 0, 'ave_reward':float('-inf'), 'ave_turns': float('inf'), 'epoch':0}
 best_model['model'] = copy.deepcopy(agent)
@@ -260,32 +262,33 @@ performance_records['ave_turns'] = {}
 performance_records['ave_reward'] = {}
 
 
-""" Save model """
+""" Save Model """
 def save_model(path, agt, success_rate, agent, best_epoch, cur_epoch):
     filename = 'agt_%s_%s_%s_%.5f.p' % (agt, best_epoch, cur_epoch, success_rate)
     filepath = os.path.join(path, filename)
     checkpoint = {}
-    if agt == 9: checkpoint['model'] = copy.deepcopy(agent.dqn.model)
+    if agt == 9:
+        checkpoint['model'] = copy.deepcopy(agent.dqn.model)
     checkpoint['params'] = params
     try:
         pickle.dump(checkpoint, open(filepath, "wb"))
-        print 'saved model in %s' % (filepath, )
+        print('saved model in %s' % (filepath, ))
     except Exception, e:
-        print 'Error: Writing model fails: %s' % (filepath, )
-        print e
+        print('Error: Writing model fails: %s' % (filepath, ))
+        print(e)
 
-""" save performance numbers """
+""" Save Performance Numbers """
 def save_performance_records(path, agt, records):
     filename = 'agt_%s_performance_records.json' % (agt)
     filepath = os.path.join(path, filename)
     try:
         json.dump(records, open(filepath, "wb"))
-        print 'saved model in %s' % (filepath, )
+        print('saved model in %s' % (filepath, ))
     except Exception, e:
-        print 'Error: Writing model fails: %s' % (filepath, )
-        print e
+        print('Error: Writing model fails: %s' % (filepath, ))
+        print(e)
 
-""" Run N simulation Dialogues """
+""" Run N-Simulation Dialogues """
 def simulation_epoch(simulation_epoch_size):
     successes = 0
     cumulative_reward = 0
