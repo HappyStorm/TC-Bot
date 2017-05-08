@@ -304,9 +304,9 @@ def simulation_epoch(simulation_epoch_size):
             if episode_over:
                 if reward > 0:
                     successes += 1
-                    print ("simulation episode %s: Success" % (episode))
+                    print("simulation episode %s: Success" % (episode))
                 else:
-                    print ("simulation episode %s: Fail" % (episode))
+                    print("simulation episode %s: Fail" % (episode))
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
     res['success_rate'] = float(successes)/simulation_epoch_size
@@ -322,17 +322,18 @@ def warm_start_simulation():
     cumulative_turns = 0
 
     res = {}
-    for episode in xrange(warm_start_epochs):
+    for episode in range(warm_start_epochs):
         dialog_manager.initialize_episode()
         episode_over = False
-        while(not episode_over):
+        while (not episode_over):
             episode_over, reward = dialog_manager.next_turn()
             cumulative_reward += reward
             if episode_over:
                 if reward > 0:
                     successes += 1
-                    print ("warm_start simulation episode %s: Success" % (episode))
-                else: print ("warm_start simulation episode %s: Fail" % (episode))
+                    print("warm_start simulation episode %s: Success" % (episode))
+                else:
+                    print("warm_start simulation episode %s: Fail" % (episode))
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
         if len(agent.experience_replay_pool) >= agent.experience_replay_pool_size:
@@ -353,12 +354,12 @@ def run_episodes(count, status):
     cumulative_turns = 0
 
     if agt == 9 and params['trained_model_path'] == None and warm_start == 1:
-        print ('warm_start starting ...')
+        print('warm_start starting ...')
         warm_start_simulation()
-        print ('warm_start finished, start RL training ...')
+        print('warm_start finished, start RL training ...')
 
     for episode in xrange(count):
-        print ("Episode: %s" % (episode))
+        print("Episode: %s" % (episode))
         dialog_manager.initialize_episode()
         episode_over = False
 
@@ -368,9 +369,10 @@ def run_episodes(count, status):
 
             if episode_over:
                 if reward > 0:
-                    print ("Successful Dialog!")
+                    print("Successful Dialog!")
                     successes += 1
-                else: print ("Failed Dialog!")
+                else:
+                    print("Failed Dialog!")
 
                 cumulative_turns += dialog_manager.state_tracker.turn_count
 
@@ -399,7 +401,7 @@ def run_episodes(count, status):
             agent.train(batch_size, 1)
             agent.predict_mode = False
 
-            print ("Simulation success rate %s, Ave reward %s, Ave turns %s, Best success rate %s" % (performance_records['success_rate'][episode], performance_records['ave_reward'][episode], performance_records['ave_turns'][episode], best_res['success_rate']))
+            print("Simulation success rate %s, Ave reward %s, Ave turns %s, Best success rate %s" % (performance_records['success_rate'][episode], performance_records['ave_reward'][episode], performance_records['ave_turns'][episode], best_res['success_rate']))
             if episode % save_check_point == 0 and params['trained_model_path'] == None: # save the model every 10 episodes
                 save_model(params['write_model_dir'], agt, best_res['success_rate'], best_model['model'], best_res['epoch'], episode)
                 save_performance_records(params['write_model_dir'], agt, performance_records)
