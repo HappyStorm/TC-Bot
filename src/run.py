@@ -117,7 +117,7 @@ goal_file_path = params['goal_file_path']
 # load the user goals from .p file
 all_goal_set = pickle.load(open(goal_file_path, 'rb'))
 
-# split goal set
+# split goal set (split the goal set to be "train", "valid", "test" sets)
 split_fold = params.get('split_fold', 5)
 goal_set = {'train':[], 'valid':[], 'test':[], 'all':[]}
 for u_goal_id, u_goal in enumerate(all_goal_set):

@@ -6,8 +6,13 @@ Created on May 18, 2016
 
 
 def text_to_dict(path):
-    """ Read in a text file as a dictionary where keys are text and values are indices (line numbers) """
-    
+    """ Read in a text file as a dictionary where keys are text and values are indices (line numbers)
+        Input:
+            @param path: path to the file
+        Output:
+            @param slot_set: dict of key-value pairs (k: text, v: line numbers)
+    """
+
     slot_set = {}
     with open(path, 'r') as f:
         index = 0
