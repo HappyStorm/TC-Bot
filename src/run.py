@@ -339,7 +339,7 @@ def warm_start_simulation():
         if len(agent.experience_replay_pool) >= agent.experience_replay_pool_size:
             break
 
-    agent.warm_start = 2
+    agent.warm_start = 2 # just a counter to avoid executing warm simulation twice
     res['success_rate'] = float(successes)/simulation_epoch_size
     res['ave_reward'] = float(cumulative_reward)/simulation_epoch_size
     res['ave_turns'] = float(cumulative_turns)/simulation_epoch_size
