@@ -298,7 +298,7 @@ def simulation_epoch(simulation_epoch_size):
     for episode in range(simulation_epoch_size):
         dialog_manager.initialize_episode()
         episode_over = False
-        while(not episode_over):
+        while not episode_over:
             episode_over, reward = dialog_manager.next_turn()
             cumulative_reward += reward
             if episode_over:
