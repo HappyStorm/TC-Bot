@@ -21,13 +21,15 @@ class KBHelper:
 
     def fill_inform_slots(self, inform_slots_to_be_filled, current_slots):
         """ Takes unfilled inform slots and current_slots, returns dictionary of filled informed slots (with values)
+        @Arguments:
+            inform_slots_to_be_filled   --  Something that looks like {starttime: None, theater: None} where starttime
+                                            and theater are slots that the agent needs filled
+            current_slots               --  Contains a record of all filled slots in the conversation so far - for now,
+                                            just use current_slots['inform_slots'] which is a dictionary of the already filled-in slots
 
-        Arguments:
-            inform_slots_to_be_filled   --  Something that looks like {starttime:None, theater:None} where starttime and theater are                                    slots that the agent needs filled
-            current_slots               --  Contains a record of all filled slots in the conversation so far - for now, just use                                        current_slots['inform_slots'] which is a dictionary of the already filled-in slots
-
-        Returns:
-            filled_in_slots             --  A dictionary of form {slot1:value1, slot2:value2} for each sloti in                                                         inform_slots_to_be_filled
+        @Returns:
+            filled_in_slots             --  A dictionary of form {slot1: value1, slot2: value2}
+                                            for each slot in inform_slots_to_be_filled
         """
 
         kb_results = self.available_results_from_kb(current_slots)
@@ -61,7 +63,7 @@ class KBHelper:
             if len(values_counts) > 0:
                 filled_in_slots[slot] = sorted(values_counts, key = lambda x: -x[1])[0][0]
             else:
-                filled_in_slots[slot] = dialog_config.NO_VALUE_MATCH #"NO VALUE MATCHES SNAFU!!!"
+                filled_in_slots[slot] = dialog_config.NO_VALUE_MATCH # "NO VALUE MATCHES SNAFU!!!"
 
         return filled_in_slots
 
@@ -75,7 +77,8 @@ class KBHelper:
                 slot_val = kb_results[movie_id][slot]
                 if slot_val in slot_values.keys():
                     slot_values[slot_val] += 1
-                else: slot_values[slot_val] = 1
+                else:
+                    slot_values[slot_val] = 1
         return slot_values
 
     def available_results_from_kb(self, current_slots):
