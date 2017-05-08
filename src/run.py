@@ -358,7 +358,7 @@ def run_episodes(count, status):
         warm_start_simulation()
         print('warm_start finished, start RL training ...')
 
-    for episode in xrange(count):
+    for episode in range(count):
         print("Episode: %s" % (episode))
         dialog_manager.initialize_episode()
         episode_over = False
