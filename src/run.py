@@ -363,7 +363,7 @@ def run_episodes(count, status):
         dialog_manager.initialize_episode()
         episode_over = False
 
-        while(not episode_over):
+        while not episode_over:
             episode_over, reward = dialog_manager.next_turn()
             cumulative_reward += reward
 
