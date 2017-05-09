@@ -347,7 +347,6 @@ def warm_start_simulation():
     print("Current experience replay buffer size %s" % (len(agent.experience_replay_pool)))
 
 
-
 def run_episodes(count, status):
     successes = 0
     cumulative_reward = 0
@@ -414,5 +413,6 @@ def run_episodes(count, status):
     if agt == 9 and params['trained_model_path'] == None:
         save_model(params['write_model_dir'], agt, float(successes)/count, best_model['model'], best_res['epoch'], count)
         save_performance_records(params['write_model_dir'], agt, performance_records)
+
 
 run_episodes(num_episodes, status)
