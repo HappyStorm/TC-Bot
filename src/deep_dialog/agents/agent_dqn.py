@@ -92,14 +92,14 @@ class AgentDQN(Agent):
         #   Create one-hot of acts to represent the current user action
         ########################################################################
         user_act_rep =  np.zeros((1, self.act_cardinality))
-        user_act_rep[0,self.act_set[user_action['diaact']]] = 1.0
+        user_act_rep[0, self.act_set[user_action['diaact']]] = 1.0
 
         ########################################################################
         #     Create bag of inform slots representation to represent the current user action
         ########################################################################
         user_inform_slots_rep = np.zeros((1, self.slot_cardinality))
         for slot in user_action['inform_slots'].keys():
-            user_inform_slots_rep[0,self.slot_set[slot]] = 1.0
+            user_inform_slots_rep[0, self.slot_set[slot]] = 1.0
 
         ########################################################################
         #   Create bag of request slots representation to represent the current user action
@@ -128,7 +128,7 @@ class AgentDQN(Agent):
         agent_inform_slots_rep = np.zeros((1, self.slot_cardinality))
         if agent_last:
             for slot in agent_last['inform_slots'].keys():
-                agent_inform_slots_rep[0,self.slot_set[slot]] = 1.0
+                agent_inform_slots_rep[0, self.slot_set[slot]] = 1.0
 
         ########################################################################
         #   Encode last agent request slots
@@ -136,9 +136,9 @@ class AgentDQN(Agent):
         agent_request_slots_rep = np.zeros((1, self.slot_cardinality))
         if agent_last:
             for slot in agent_last['request_slots'].keys():
-                agent_request_slots_rep[0,self.slot_set[slot]] = 1.0
+                agent_request_slots_rep[0, self.slot_set[slot]] = 1.0
 
-        turn_rep = np.zeros((1,1)) + state['turn'] / 10.
+        turn_rep = np.zeros((1, 1)) + state['turn'] / 10.
 
         ########################################################################
         #  One-hot representation of the turn count?
@@ -233,7 +233,7 @@ class AgentDQN(Agent):
                 batch_struct = self.dqn.singleBatch(batch, {'gamma': self.gamma}, self.clone_dqn)
                 self.cur_bellman_err += batch_struct['cost']['total_cost']
 
-            print ("cur bellman err %.4f, experience replay pool %s" % (float(self.cur_bellman_err)/len(self.experience_replay_pool), len(self.experience_replay_pool)))
+            print ("Current Bellman Error %.4f, Experience-Replay Pool %s" % (float(self.cur_bellman_err) / len(self.experience_replay_pool), len(self.experience_replay_pool)))
 
 
     ################################################################################

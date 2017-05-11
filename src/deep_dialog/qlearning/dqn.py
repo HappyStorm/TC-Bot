@@ -223,7 +223,7 @@ class DQN:
         for k in grads: grads[k] /= batch_size
 
         out = {}
-        out['cost'] = {'reg_cost' : reg_cost, 'loss_cost' : loss_cost, 'total_cost' : loss_cost + reg_cost}
+        out['cost'] = {'reg_cost': reg_cost, 'loss_cost': loss_cost, 'total_cost': loss_cost + reg_cost}
         out['grads'] = grads
         return out
 
@@ -260,16 +260,16 @@ class DQN:
             if p in grads:
                 if sdg_type == 'vanilla':
                     if momentum > 0:
-                        dx = momentum*self.step_cache[p] - learning_rate*grads[p]
+                        dx = momentum * self.step_cache[p] - learning_rate * grads[p]
                     else:
-                        dx = -learning_rate*grads[p]
+                        dx = -learning_rate * grads[p]
                     self.step_cache[p] = dx
                 elif sdg_type == 'rmsprop':
-                    self.step_cache[p] = self.step_cache[p]*decay_rate + (1.0-decay_rate)*grads[p]**2
-                    dx = -(learning_rate*grads[p])/np.sqrt(self.step_cache[p] + smooth_eps)
+                    self.step_cache[p] = self.step_cache[p] * decay_rate + (1.0 - decay_rate) * grads[p]**2
+                    dx = -(learning_rate * grads[p]) / np.sqrt(self.step_cache[p] + smooth_eps)
                 elif sdg_type == 'adgrad':
                     self.step_cache[p] += grads[p]**2
-                    dx = -(learning_rate*grads[p])/np.sqrt(self.step_cache[p] + smooth_eps)
+                    dx = -(learning_rate * grads[p]) / np.sqrt(self.step_cache[p] + smooth_eps)
 
                 self.model[p] += dx
 
